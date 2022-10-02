@@ -21,7 +21,6 @@ def menu():
             option = int(input(' Escolha a opção: '))
             if option == 1:
                 ydl.download(link)
-                menu()
             elif option == 2:
                 print('Fim do Programa')
                 exit()
