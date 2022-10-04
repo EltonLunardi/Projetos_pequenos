@@ -2,7 +2,7 @@ import random
 import string
 
 
-def gerar_low():
+def gen_low():
     length = int(input('\nInsira o tamanho da senha: '))
     lower = string.ascii_lowercase
     all = lower
@@ -11,7 +11,7 @@ def gerar_low():
     print(password)
 
 
-def gerar_upe():
+def gen_upe():
     length = int(input('\nInsira o tamanho da senha: '))
     upper = string.ascii_uppercase
     all = upper
@@ -20,7 +20,7 @@ def gerar_upe():
     print(password)
 
 
-def gerar_num():
+def gen_num():
     length = int(input('\nInsira o tamanho da senha: '))
     num = string.digits
     all = num
@@ -29,7 +29,7 @@ def gerar_num():
     print(password)
 
 
-def gerar_sym():
+def gen_sym():
     length = int(input('\nInsira o tamanho da senha: '))
     symbols = string.punctuation
     all = symbols
@@ -38,7 +38,7 @@ def gerar_sym():
     print(password)
 
 
-def gerar_char():
+def gen_char():
     length = int(input('\nInsira o tamanho da senha: '))
     char = string.ascii_letters
     all = char
@@ -47,7 +47,7 @@ def gerar_char():
     print(password)
 
 
-def gerar_completo():
+def gen_completo():
     length = int(input('\nInsira o tamanho da senha: '))
 
     lower = string.ascii_lowercase
@@ -93,17 +93,17 @@ def menu():
 
             option = int(input(' Escolha a opção: '))
             if option == 1:
-                gerar_completo()
+                gen_completo()
             elif option == 2:
-                gerar_low()
+                gen_low()
             elif option == 3:
-                gerar_upe()
+                gen_upe()
             elif option == 4:
-                gerar_num()
+                gen_num()
             elif option == 5:
-                gerar_sym()
+                gen_sym()
             elif option == 6:
-                gerar_char()
+                gen_char()
             elif option == 7:
                 print('Fim do Programa')
                 exit()
