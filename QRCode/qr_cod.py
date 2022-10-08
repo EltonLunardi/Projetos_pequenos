@@ -11,4 +11,4 @@ img = qr.make_image(fill_color='red', back_color='transparent')
 # qr.add_data(data)
 # qr.make(fill=True)
 
-img.save('./QRCode/img/sexo.png')
+img.save('./QRCode/img/test.png')
