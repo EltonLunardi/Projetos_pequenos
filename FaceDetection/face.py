@@ -1,48 +1,38 @@
 import cv2
-import face_recognition
 
-# Carrega a imagem do rosto para comparar
-imagem_referencia = face_recognition.load_image_file("minha_foto.jpg")
-face_referencia = face_recognition.face_encodings(imagem_referencia)[0]
+# Carrega o classificador de faces
+face_cascade = cv2.CascadeClassifier(
+    'FaceDetection\haarcascade_frontalface_default.xml')
 
 # Inicializa a webcam
-webcam = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
+
+# Define o tamanho mínimo e máximo para detecção do rosto
+min_size = (30, 30)
+max_size = (200, 200)
 
 while True:
-    # Captura um frame da webcam
-    ret, frame = webcam.read()
+    # Lê o frame da webcam
+    ret, frame = cap.read()
 
     # Converte o frame para escala de cinza
-    frame_cinza = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Detecta os rostos presentes no frame
+    # Detecta as faces no frame
     faces = face_cascade.detectMultiScale(
-        frame_cinza, scaleFactor=1.1, minNeighbors=5)
+        gray, 1.3, 5, minSize=min_size, maxSize=max_size)
 
-    # Para cada rosto detectado, realiza o reconhecimento facial
+    # Desenha um retângulo ao redor das faces detectadas
     for (x, y, w, h) in faces:
-        face_atual = frame[y:y+h, x:x+w]
-        face_codificada = face_recognition.face_encodings(face_atual)[0]
-        distancia = face_recognition.face_distance(
-            [face_referencia], face_codificada)
-
-        # Se a distância entre as faces for menor que 0.6, é considerado que é você
-        if distancia < 0.6:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            cv2.putText(frame, "É você!", (x, y-10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
-        else:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
-            cv2.putText(frame, "Nao é você!", (x, y-10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # Mostra o frame na tela
-    cv2.imshow("Webcam", frame)
+    cv2.imshow('Face Detection', frame)
 
-    # Espera pela tecla 'q' para sair do loop
+    # Sai do loop quando a tecla 'q' é pressionada
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Libera a webcam e fecha as janelas
-webcam.release()
+# Libera a webcam e fecha a janela do vídeo
+cap.release()
 cv2.destroyAllWindows()
