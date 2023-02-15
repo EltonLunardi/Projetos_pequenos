@@ -1,0 +1,4 @@
+Running the program
+Simply run: python main.py /path/to/your/file.torrent
+
+The files will be downloaded in the same path as your main.py script.
